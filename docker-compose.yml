@@ -1,0 +1,23 @@
+services:
+  web:
+    build: app/.
+    ports:
+      - "8000:8000"
+    networks:
+      - internal
+    environment:
+      serving_host: serving
+    depends_on:
+      - serving
+
+  serving:
+    image: tensorflow/serving
+    volumes:
+      - ./models/test_model:/models/test_model
+    environment:
+      - MODEL_NAME=test_model
+    networks:
+      - internal
+
+networks:
+  internal: 

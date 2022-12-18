@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Dog Breed</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <h2>Dog Classifier</h2>
+            <form id="myForm" method="post" enctype="multipart/form-data">
+                <input type="file" accept="image/*" name="image" id="file">
+                <img id="output" width="200" />	
+                <button id="submit-button" class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+        {% if predictions %}
+        <div class="row">
+            <div class="col">
+            <h3>Results</h3>
+            <img id="picture" src="data:image/jpeg;base64,{{ image }}" width="200">
+                    <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Rank</th>
+                        <th scope="col">Breed</th>
+                        <th scope="col">Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ele in predictions %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}</th>
+                            <td>{{ ele[0] }}</td>
+                            <td>{{ ele[1] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+        {% endif %}
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script>
+        let image = document.getElementById('output');
+        const loadFile = (e) => {
+            image.src = URL.createObjectURL(e.target.files[0])
+        }
+
+        document.getElementById("file").addEventListener('change', loadFile);
+    </script>
+
+
+</body>
+
+</html>

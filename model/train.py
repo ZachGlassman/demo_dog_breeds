@@ -47,7 +47,7 @@ def main(epochs: int, version: int):
         with_info=True,
     )
 
-    ds_train = process_image(ds_train.shuffle(ds_info.splits["train"].num_examples))
+    ds_train = process_image(ds_train.shuffle(buffer_size=tf.data.AUTOTUNE))
     ds_test = process_image(ds_test)
 
     model = get_model()
